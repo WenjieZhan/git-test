@@ -1,0 +1,47 @@
+﻿1.安装pycharm时创建桌面快捷方式
+方法一：https://blog.csdn.net/sinat_35866463/article/details/80310486（配置文件）
+方法二：https://blog.csdn.net/u010083327/article/details/79806168
+
+
+
+2019年3月14日
+关于pycharm导入项目后，不能import
+提示没有对应模块
+这是因为文件夹不能作为模块，需要添加一个叫__init__的文件，使其成为一个模块
+
+用ssh来连接服务器，用scp从服务器下载文件
+
+
+2019年3月15日
+python的静态方法（https://www.cnblogs.com/pinking/p/7944376.html）
+
+学习了个git知识，可以设置ssh
+shh 连接远程服务区，  scp可以实现文件的传输
+
+ubuntu-drivers devices命令很强大（可以看推荐的驱动版本）安装GPU必备
+
+2019年3月18号
+安装ubuntu的Nividia驱动(https://blog.csdn.net/xunan003/article/details/81665835)
+
+安装步骤：
+1.nouveau禁用
+2. sudo service lightdm stop      //这个是关闭图形界面，不执行会出错。
+我没有成功
+
+然后卸载掉原有驱动：
+
+     sudo apt-get remove nvidia-*  （若安装过其他版本或其他方式安装过驱动执行此项）
+
+3.  sudo chmod  a+x NVIDIA-Linux-x86_64-396.18.run
+
+安装：
+
+     sudo ./NVIDIA-Linux-x86_64-396.18.run -no-x-check -no-nouveau-check -no-opengl-files //只有禁用opengl这样安装才不会出现循环登陆的问题
+
+#########################
+下载完成reboot,发现进不了图形界面，弄了一个上午，卸载了gdm和gdm3
+又安装gdm和gdm3
+最后是执行：sudo rm /etc/X11/xorg.conf 再reboot就成功了
+
+安装cuda： sudo apt-get install nvidia-cuda-toolkit
+
