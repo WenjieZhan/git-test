@@ -45,3 +45,4 @@ ubuntu-drivers devices命令很强大（可以看推荐的驱动版本）安装G
 
 安装cuda： sudo apt-get install nvidia-cuda-toolkit
 
+111
