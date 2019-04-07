@@ -45,4 +45,163 @@ ubuntu-drivers devices命令很强大（可以看推荐的驱动版本）安装G
 
 安装cuda： sudo apt-get install nvidia-cuda-toolkit
 
-111
+
+##########################################
+在将embeddings写入json时，出现错误TypeError: Object of type 'bytes' is not JSON serializable
+（参考：https://blog.csdn.net/bear_sun/article/details/79397155）
+
+
+2019年3月19日
+在pycharm中查找那个文件调用该函数，可以选中该函数，鼠标右键使用find usages
+
+我的电脑可以远程ssh连接服务器，但是下面的不能连我的电脑
+ps -e |grep ssh  没有sshd，  所以如果你只是想登陆别的机器的SSH只需要安装openssh-client（ubuntu有默认安装，如果没有则sudo apt-get install openssh-client），如果要使本机开放SSH服务就需要安装openssh-server
+sudo apt-get install openssh-server
+（https://www.cnblogs.com/happyliuyi/p/5833887.html）
+
+
+###########
+出现：Input type (torch.FloatTensor) and weight type (torch.cuda.FloatTensor) should be the same
+
+之后是添加
+import os
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
+    
+if cuda:
+        model = torch.nn.parallel.DataParallel(model)
+        model.cuda()
+得以解决
+
+
+######
+Kdevelop使用（https://blog.csdn.net/u011109761/article/details/81165896）
+
+设置环境变量python
+https://www.cnblogs.com/crazymagic/p/9132309.html
+
+
+2019年3月20日
+ssh相关知识（https://blog.csdn.net/u013452337/article/details/80847113）(https://blog.csdn.net/li528405176/article/details/82810342#SSH%E4%B8%A4%E7%A7%8D%E7%BA%A7%E5%88%AB%E7%9A%84%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95)
+
+ssh sl@192.168.27.191  每此登陆远程服务器都要输入ip地址。可以使用配置文件config（https://blog.csdn.net/sduuntion/article/details/26222715）
+步骤1：在当前用户的.ssh目录下建立一个config文件，去保存一些自定义的配置，把用户名和主机名保存进去
+
+Config文件代码 
+
+    Host server  
+    User sl 
+    HostName 192.168.27.191
+ 
+我们定义了一个叫server的host，它下面的所有配置项（直到下一个host定义之前）都隶属于这个host，我们为server设定了用户名和密码。以后在任何需要敲 sl@192.168.27.191 的地方，你都可以使用server来替代
+
+
+索引顺序表的查找
+对于分块有序表的查找
+
+首先，我们需要先建立一个索引表，索引表中为每一块都设置–索引项，每一个索引项都包含两个内容：
+
+    该块的起始地址
+
+    该块中最大（或最小）的元素
+
+#############
+Kdevelop使用
+如果修改了其中的.cpp文件名，则必须要修改对应的CMakeLists.txt
+build文件夹下的不用修改。
+
+#############
+pandas使用
+（https://blog.csdn.net/qq_42156420/article/details/82813482）
+（https://blog.csdn.net/ysh55024/article/details/81389410）
+
+2019年3月21日
+map() 函数接收两个参数,一个是函数,一个
+是 Iterable , map 将传入的函数依次作用到序列的每个元素,并把结果作为新
+的 Iterator 返回。
+Iterator ,就是一个惰性序列，要
+强迫 filter() 完成计算结果,需要用 list() 函数获得所有结果并返回list
+
+python中的sorted（）函数也是高阶函数，可以接收一个 key 函数
+高阶函数就是可以接受函数作为参数的函数
+sorted([36, 5, -12, 9, -21], key=abs)
+[5, 9, -12, -21, 36]
+
+#########
+今天用with open(r"~/.shelf/classification/knn_models/"+time.strftime("%Y%m%d",time.localtime())+"/embeddings.json", 'w') as f:
+发生错误，这是因为open函数只能打开已有的文件夹，不能生成新的文件夹
+用os.mkdir(path)先生成文件夹再保存。
+但是因为我的pythonPath设置在当前执行的，所以不能以家路径（~/）保存，不然会在当前文件夹下建"~/zwj/..."
+用os.path.expanduser('~')将路径变为真正的～目录才可以
+
+########
+@property 一个方法变成属性调用
+所以定义一个名叫age()的方法，就相当于是一个self.age 这个属性，
+@property
+def age():
+   return self._birth
+
+@property 本身又创建了另一个
+装饰器 @age.setter ,负责把一个setter方法变成属性赋值
+
+##############
+图形界面(GUI编程)
+
+
+2019年3月26日
+git review --reviewers taolm
+
+git pull --rebase
+
+2019年3月27日
+最小生成树Prim算法理解
+（https://blog.csdn.net/yeruby/article/details/38615045）
+（https://blog.csdn.net/junya_zhang/article/details/83544709）
+
+太急功近利了，数据结构与算法不熟悉，我和应付任务一样很急切的想去掌握，学的很浮躁，这应该是我的兴趣，仔细去专研。
+
+###########
+tensorflow的resnet50 出错
+ValueError: Only call `sparse_softmax_cross_entropy_with_logits` with named arguments (labels=..., logits=..., ...)
+
+这个原因就是因为这个函数的API发生变化了，要加labels 和logits
+（https://blog.csdn.net/accumulate_zhang/article/details/78254417）
+
+2019年3月28日
+Kdevelop 需要cin 输入数据怎么办？
+（https://blog.csdn.net/cym_hnu/article/details/79954267）
+
+Method 1.可以在terminal终端下运行该程序，输入数据
+Method 2.kdevelop也需要一个类似与terminal的终端界面konsole,
+         安装konsole:  sudo apt install konsole
+	然后在kdevelop中为程序配置，”运行”→“配置启动器”，勾选“使用外部终端”点击OK
+
+2019年4月1日 
+今天的任务是现实tf2.0的resnet50  
+tf2.0介绍
+（https://blog.csdn.net/qq_31456593/article/details/88377117）
+（https://github.com/czy36mengfei/tensorflow2_tutorials_chinese）
+
+2019年4月3日
+python中，enumerate() 函数用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列，同时列出数据和数据下标，一般用在 for 循环当中。
+
+2019年4月7日
+c++发现clion is IDE for liuxs of c++
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
