@@ -24,7 +24,7 @@ ubuntu-drivers devices命令很强大（可以看推荐的驱动版本）安装G
 安装ubuntu的Nividia驱动(https://blog.csdn.net/xunan003/article/details/81665835)
 
 安装步骤：
-1.nouveau禁用
+1.nouveau禁用（台式机上会分辨率变很低）
 2. sudo service lightdm stop      //这个是关闭图形界面，不执行会出错。
 我没有成功
 
@@ -186,15 +186,60 @@ tf2.0介绍
 python中，enumerate() 函数用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列，同时列出数据和数据下标，一般用在 for 循环当中。
 
 2019年4月7日
-c++发现clion is IDE for liuxs of c++
+c++发现软件clion 是IDE for liuxs of c++
+
+算法最重要的是理解其逻辑，再去写代码，理解其逻辑可以简化大量代码，往往在简化的大量代码中是无法直接看出原问题的逻辑思路（玩转算法面试的0-1背包问题，其优化到最后代码就短短10行，直接看着10行是很难看懂的）
+
+(https://blog.csdn.net/qq_32599479/article/details/81088837)
+安装clion后还要配置cmake，不然不可以运行。
+
+tensorflow2.0
+https://blog.csdn.net/qq_20084101/article/details/81870064
 
 
+2019年4月8日
+https://www.cnblogs.com/luofeel/p/8654964.html
+台式机安装nvidia。直接 添加PPA源，再sudo apt-get install nvidia-driver-418
+reboot后会蓝屏，选择ROLL 选项
+
+cuda安装（https://blog.csdn.net/qq_26369907/article/details/88430836）
+
+该电脑不能被连接ssh， 运行ps -e | grep ssh, 查看是否有sshd进程
+若没有，则说明server没启动，通过/etc/init.d/ssh -start,不行说明没安装sudo apt-get install openssh-server
+
+cudnn安装（https://blog.csdn.net/wanzhen4330/article/details/81699769）
+
+###############
+tmux工具来操作终端
+
+CUDA问题
+https://blog.csdn.net/weixin_43229347/article/details/85229783
+
+无法nvidia-smi又按了一次驱动：
+###############################################################################################
+下列软件包有未满足的依赖关系：
+ xserver-xorg-video-nvidia-418 : 依赖: libnvidia-cfg1-418 (= 418.56-0ubuntu0~gpu18.04.1) 但是它将不会被安装
+E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。
+##############################################################################################
+解决：sudo apt-get install libnvidia-cfg1-418
+
+ubuntu-drivers devices
+sudo apt-get install nvidia-driver-418
+
+2019年4月11日
+1. pycharm中无法import tensorflow（https://blog.csdn.net/ksws0292756/article/details/79959187）
 
 
+2. tensorflow运行有很多额外信息打印
+解决：
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+（https://blog.csdn.net/zhaohaibo_/article/details/80573676）
 
+3. cudnn没装运行tensorflow2.0_gpu有错误
 
-
-
+4.安装vnc  
+然后在终端进入安装包存放的地址，然后切换到root用户，再用指令sudo dpkg -i 安装包名称（其中-i等价于--install）即可安装成功（https://blog.csdn.net/wanderlustLee/article/details/80933321）
 
 
 
