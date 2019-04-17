@@ -241,10 +241,46 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 4.安装vnc  
 然后在终端进入安装包存放的地址，然后切换到root用户，再用指令sudo dpkg -i 安装包名称（其中-i等价于--install）即可安装成功（https://blog.csdn.net/wanderlustLee/article/details/80933321）
 
+5.执行下面的命令重启vnc server
+[root@localhost ~]# vncserver -kill :1  
+[root@localhost ~]# vncserver :1  
 
+2019年4月15日
+1. 将tf的model保存为pb格式，使用export_saved_model出现错误 
+    return cls(**config)
+TypeError: __init__() got an unexpected keyword argument 'dtype'
+ File "/home/zwj/anaconda3/lib/python3.7/site-packages/tensorflow/python/keras/models.py", line 144, in _clone_functional_model
+    new_layer = _clone_layer(layer)
 
+这个错误怎么都弄不出来，是有怀疑是自己自定义模型层的问题，但是不知道错在哪里，还是组长厉害，帮我搞定的
+我写的tf_resnet.py中
+class MyLayer_embedddings(tf.keras.layers.Layer):
+    def __init__(self, output_dim, **kwargs):
+        self.embedding_size = output_dim
+        super(MyLayer_embedddings, self).__init__(**kwargs)
 
+    def call(self,inputs):
+        return tf.keras.layers.Dense(self.embedding_size, name='fc1000')(inputs)
 
+改为：
+class MyLayer_embedddings(tf.keras.layers.Layer):
+    def __init__(self, output_dim, **kwargs):
+        self.embedding_size = output_dim
+        self.dense = tf.keras.layers.Dense(self.embedding_size, name='fc1000')
+        super(MyLayer_embedddings, self).__init__(**kwargs)
+
+    def call(self,inputs):
+        return self.dense(inputs)
+
+这是因为tf.keras.layers.Dense(self.embedding_size, name='fc1000')(inputs)没有存储在self.dense中，这样会当作临时变量
+还要再加：
+tf.keras.experimental.export_saved_model(model, 'path_to_saved_model',serving_only=True)
+
+2019年4月16日
+1.tensorflow在终端运行可以，直接在桌面打开pycharm不能运行，用sh pycharm.sh命令打开pycharm可以运行，
+终端验证无误后就不用纠结了，是pycharm的锅，找到pycharm.sh文件后将cuda相关环境变量添加进去，保存即可。
+export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
+（https://www.zhihu.com/question/60840419?sort=created）
 
 
 
