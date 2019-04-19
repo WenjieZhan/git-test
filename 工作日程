@@ -82,9 +82,11 @@ https://www.cnblogs.com/crazymagic/p/9132309.html
 
 
 2019年3月20日
+1.SSH 每次都要密码登陆很麻烦？
 ssh相关知识（https://blog.csdn.net/u013452337/article/details/80847113）(https://blog.csdn.net/li528405176/article/details/82810342#SSH%E4%B8%A4%E7%A7%8D%E7%BA%A7%E5%88%AB%E7%9A%84%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95)
 
-ssh sl@192.168.27.191  每此登陆远程服务器都要输入ip地址。可以使用配置文件config（https://blog.csdn.net/sduuntion/article/details/26222715）
+
+2.ssh sl@192.168.27.191  每此登陆远程服务器都要输入ip地址。可以使用配置文件config（https://blog.csdn.net/sduuntion/article/details/26222715）
 步骤1：在当前用户的.ssh目录下建立一个config文件，去保存一些自定义的配置，把用户名和主机名保存进去
 
 Config文件代码 
@@ -282,7 +284,23 @@ tf.keras.experimental.export_saved_model(model, 'path_to_saved_model',serving_on
 export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
 （https://www.zhihu.com/question/60840419?sort=created）
 
+2019年4月18日
+1.git review 出问题
+可以sudo vim ~/.gitconfig 修改配置文件的邮箱和用户名
+git commit --amend --reset-author
+也可以
+git pull <partner_remote> <partner_branch>
+git config user.email <my_email>
+git config user.name <my_name>
+然后
+git commit --amend --reset-author
+git push <my_remote> HEAD:refs/for/<my_branch>
 
+2.将git的默认编辑器给为vim
 
-
+2019年4月19日
+1.tensorboard在服务器上报错（本地可用）
+PermissionError:[Errno 13] Permission denied: ‘/tmp/.tensorboard-info/pid-69304.info'
+解决：
+chmod a+w /tmp/.tensorboard-info
 
